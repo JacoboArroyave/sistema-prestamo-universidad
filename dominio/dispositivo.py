@@ -32,3 +32,5 @@ class Dispositivo(ABC):
     def actualizar_estado_por_devolucion(self, nuevo_estado:EstadoDispositivo | None ):
         if nuevo_estado is None or nuevo_estado == EstadoDispositivo.EN_USO:
             self.estado = EstadoDispositivo.DISPONIBLE
+        else:
+            self.estado =EstadoDispositivo.EN_MANTENIMIENTO
