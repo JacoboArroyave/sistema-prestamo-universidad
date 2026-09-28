@@ -14,9 +14,18 @@ from infraestructura.repositorio_estudiantes_sqlite import RepositorioEstudiante
 from infraestructura.repositorio_multa_sqlite import RepositorioMultaSQLite
 from infraestructura.repositorio_prestamo_sqlite import RepositorioPrestamoSQLite
 
+
+# CONCRETOS INFRAESTRUCTURA LISTAS
+from infraestructura.repositorio_dispositivos_simulado import (
+    RepositorioDispositivosSimulado,
+)
+from infraestructura.repositorio_estudiantes_simulado import RepositorioEstudiantesSimulado
+from infraestructura.repositorio_multa_memoria import RepositorioMultaSimulado
+from infraestructura.repositorio_prestamo_memoria import RepositorioPrestamoMemoria
+
+
 # SEEDER 
 from infraestructura.seeder.seeder import Seeder
-
 # Crear conexión SQLite
 conexion = sqlite3.connect("sistema.db")
 conexion.row_factory = sqlite3.Row  # Necesario para acceder a campos por nombre
