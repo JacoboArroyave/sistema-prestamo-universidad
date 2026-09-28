@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from ...dominio.dispositivo import Dispositivo
+from dominio.dispositivo import Dispositivo
 
 
 class RepositorioDispositivos(ABC):
