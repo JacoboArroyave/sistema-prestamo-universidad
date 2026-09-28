@@ -1,10 +1,11 @@
 from datetime import date
 
+from aplicacion.puertos.repositorio_dispositivos import RepositorioDispositivos
+
 # ABSTRACCIONES (PUERTOS)
 from aplicacion.puertos.repositorio_estudiantes import RepositorioEstudiantes
-from aplicacion.puertos.repositorio_dispositivos import RepositorioDispositivos
-from aplicacion.puertos.repositorio_prestamo import RepositorioPrestamo
 from aplicacion.puertos.repositorio_multa import RepositorioMulta
+from aplicacion.puertos.repositorio_prestamo import RepositorioPrestamo
 
 # DOMINIO
 from dominio.camara import Camara
@@ -55,8 +56,11 @@ class Seeder:
         
         kit1 = KitRobot(id="K1", codigo="KIT-01", estado=EstadoDispositivo.DISPONIBLE)
 
-        self.repo_dispositivos.guardar_dispositivo([portatil1, portatil2, portatil3, camara1, camara2, kit1])
+        self.repo_dispositivos.guardar_dispositivo(portatil1)
+        self.repo_dispositivos.guardar_dispositivo(portatil2)
+        self.repo_dispositivos.guardar_dispositivo(portatil3)
 
+        
         # 3. Crear Préstamos Activos para Ana (R1: Máximo 2 activos)
         prestamo_ana_1 = Prestamo(
             id="PRES-ANA-1",
