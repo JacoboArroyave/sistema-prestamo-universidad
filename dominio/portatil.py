@@ -1,4 +1,6 @@
-from dispositivo import Dispositivo
+
+from dominio.dispositivo import Dispositivo
+
 
 class Portatil(Dispositivo):
     
