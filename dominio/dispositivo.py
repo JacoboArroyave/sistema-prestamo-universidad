@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
+
 from estado_dispositivo import EstadoDispositivo
+
 
 class Dispositivo(ABC):
     
@@ -15,8 +17,18 @@ class Dispositivo(ABC):
     
     @property
     @abstractmethod
-    def maximo_dias(self):
+    def maximo_dias(self)->int:
         pass
-    
-    def cambiar_estado(self, nuevo_estado):
-        self.estado = nuevo_estado
+    @abstractmethod
+    def calcular_multa(self, dias_retraso)->int :
+        return dias_retraso * self.tarifa_diaria
+
+    def cambiar_estado_en_uso(self):
+        self.estado = EstadoDispositivo.EN_USO
+
+    def es_disponible(self):
+        return self.estado == EstadoDispositivo.DISPONIBLE
+
+    def actualizar_estado_por_devolucion(self, nuevo_estado:EstadoDispositivo | None ):
+        if nuevo_estado is None or nuevo_estado == EstadoDispositivo.EN_USO:
+            self.estado = EstadoDispositivo.DISPONIBLE
