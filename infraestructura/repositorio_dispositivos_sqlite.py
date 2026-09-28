@@ -28,15 +28,14 @@ class RepositorioDispositivosSQLite(RepositorioDispositivos):
         filas = cursor.fetchall()
         return [DispositivoMapper.a_entidad(f) for f in filas]
 
-    def guardar_dispositivo(self, dispositivo: list[Dispositivo]) -> None:
-        cursor = self.conexion.cursor()
-        for disp in dispositivo:
-            tipo_str = DispositivoMapper.obtener_tipo_str(disp)
+    def guardar_dispositivo(self, dispositivo: Dispositivo) -> None:
+            cursor = self.conexion.cursor()
+            tipo_str = DispositivoMapper.obtener_tipo_str(dispositivo)
             cursor.execute(
                 "INSERT OR REPLACE INTO dispositivos (id, codigo, estado, tipo) VALUES (?, ?, ?, ?)",
-                (disp.id, disp.codigo, disp.estado.value, tipo_str)
+                (dispositivo.id, dispositivo.codigo, dispositivo.estado.value, tipo_str)
             )
-        self.conexion.commit()
+            self.conexion.commit()
 
     def obtener_dispositivo_por_id(self, dispositivo_id: str) -> Dispositivo | None:
         cursor = self.conexion.cursor()
