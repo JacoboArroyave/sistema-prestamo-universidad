@@ -20,7 +20,6 @@ class RegistrarPrestamo:
         self.proveedor_fecha:ProveedorFecha = proveedor_fecha
         self.proveedor_id:ProveedorId = proveedor_id
         self.notificador: Notificador = notificador
-
     
     def registrar_prestamo(self,id_estudiante,id_dispositivo):
         estudiante:Estudiante = self.repositoorio_estudiante.obtener_estudiante_por_id(id_estudiante)
@@ -41,5 +40,8 @@ class RegistrarPrestamo:
         dispositivo.cambiar_estado_en_uso()
         self.reprositorio_dispositivo.actualizar_dispositivo(dispositivo)
         self.repositorio_prestamo.guardar_prestamo(prestamo)
-        self.notificador.enviar_mensaje("Prueba mensaje de caso de uso registrar prestamo cambiar este mensaje por uno mas elaborado con una funcion ")
- 
+        self.mensaje_prestamo(prestamo)
+        
+    def mensaje_prestamo(self, prestamo:Prestamo) -> None:
+        # print("entro al mesaje")
+        self.notificador.enviar_mensaje(f"Prestamo generado para el estudiante {prestamo.estudiante.nombre}, con el dispositivo: {prestamo.dispositivo.codigo} con fecha de devolucion para: {prestamo.fecha_maxima_devolucion}")

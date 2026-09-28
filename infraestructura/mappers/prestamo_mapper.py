@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import date
-from dominio.estado_prestamo import EstadoPrestamo
 from dominio.dispositivo import Dispositivo
+from dominio.estado_prestamo import EstadoPrestamo
 from dominio.estudiante import Estudiante
 from dominio.prestamo import Prestamo
 
@@ -16,6 +16,7 @@ class PrestamoMapper:
         fecha_p = date.fromisoformat(fila["fecha_prestamo"])
         fecha_d = date.fromisoformat(fila["fecha_devolucion"]) if fila["fecha_devolucion"] else None
 
+        # Al instanciar Prestamo, self.fecha_maxima_devolucion se calcula sola internamente
         prestamo = Prestamo(
             id=fila["id"],
             estudiante=estudiante,

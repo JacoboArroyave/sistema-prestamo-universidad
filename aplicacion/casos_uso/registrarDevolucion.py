@@ -29,8 +29,9 @@ class RegistrarDevolucion:
         if valor_multa > 0 :
             multa: Multa = Multa(id=self.proveedor_id.generar_id(), prestamo=prestamo, valor=valor_multa)
             self.repositorio_multa.guardar_multa(multa)
-            self.notificador.enviar_mensaje("Prueba mensaje de caso de uso devolver prestamo cambiar este mensaje por uno mas elaborado con una funcion ")
+            self.mensaje_devolucion(prestamo, valor_multa)
         self.repositorio_prestamos.actualizar_prestamo(prestamo)
         self.repositorio_dispositivos.actualizar_dispositivo(prestamo.dispositivo)
-
-
+        
+    def mensaje_devolucion(self, prestamo:Prestamo, valor_multa) -> None:
+        self.notificador.enviar_mensaje(f"Multa generada para el estudiante {prestamo.estudiante.nombre}, por devolucion atrasada del dispositivo: {prestamo.dispositivo.codigo}, Multa = {valor_multa}")
