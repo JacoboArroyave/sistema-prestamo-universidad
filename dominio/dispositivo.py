@@ -19,6 +19,7 @@ class Dispositivo(ABC):
     @abstractmethod
     def maximo_dias(self)->int:
         pass
+    
     def calcular_multa(self, dias_retraso)->int :
         return dias_retraso * self.tarifa_diaria
 

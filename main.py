@@ -1,7 +1,9 @@
 import sqlite3
-
+# CASOS DE USO
 from aplicacion.casos_uso.registrarDevolucion import RegistrarDevolucion
 from aplicacion.casos_uso.registrarPrestamo import RegistrarPrestamo
+
+# CONCRETOS INFRAESTRUCTURA SQL
 from infraestructura.notificador_simulado import NotificadorSimulado
 from infraestructura.proveedor_fecha_fija import ProveedorFechaFija
 from infraestructura.proveedor_id_uuid import ProveedorIdUUID
@@ -11,6 +13,8 @@ from infraestructura.repositorio_dispositivos_sqlite import (
 from infraestructura.repositorio_estudiantes_sqlite import RepositorioEstudiantesSQLite
 from infraestructura.repositorio_multa_sqlite import RepositorioMultaSQLite
 from infraestructura.repositorio_prestamo_sqlite import RepositorioPrestamoSQLite
+
+# SEEDER 
 from infraestructura.seeder.seeder import Seeder
 
 # Crear conexión SQLite
@@ -49,8 +53,8 @@ caso_devolucion = RegistrarDevolucion(
     proveedor_multa=repo_multas,
 )
 # Ejecutar el seeder de prueba
-# seeder = Seeder(repo_estudiantes, repo_dispositivos, repo_prestamos, repo_multas)
-# seeder.poblar_datos_iniciales()
+seeder = Seeder(repo_estudiantes, repo_dispositivos, repo_prestamos, repo_multas)
+seeder.poblar_datos_iniciales()
 
 # print("¡Base de datos inicializada y poblada correctamente para los Casos de Aceptación!")
 
@@ -78,3 +82,6 @@ try:
     print(" CA1 Exitoso: El préstamo se registró correctamente y se notificó la fecha límite.")
 except ValueError as e:
     print(f"❌ Error insospechado: {e}")
+
+
+repo_prestamos.obtener_todos() # por ahora no hay nada.

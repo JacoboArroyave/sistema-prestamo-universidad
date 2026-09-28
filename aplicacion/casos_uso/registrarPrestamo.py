@@ -23,7 +23,7 @@ class RegistrarPrestamo:
 
     
     def registrar_prestamo(self,id_estudiante,id_dispositivo):
-        estudiante:Estudiante =self.repositoorio_estudiante.obtener_estudiante_por_id(id_estudiante)
+        estudiante:Estudiante = self.repositoorio_estudiante.obtener_estudiante_por_id(id_estudiante)
         dispositivo:Dispositivo = self.reprositorio_dispositivo.obtener_dispositivo_por_id(id_dispositivo)
         if estudiante is None or dispositivo is None:
             raise ValueError("No se encontró el estudiante o el dispositivo")
