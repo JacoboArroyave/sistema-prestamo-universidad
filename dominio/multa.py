@@ -1,8 +1,10 @@
-from dominio.prestamo import Prestamo
 from estado_multa import EstadoMulta
 
-class Multa():    
-    def __init__(self, id, prestamo:Prestamo, id_prestamo, valor):
+from dominio.prestamo import Prestamo
+
+
+class Multa:    
+    def __init__(self, id, prestamo:Prestamo, valor):
         self.id = id
         self.prestamo = Prestamo
         self.valor = valor
