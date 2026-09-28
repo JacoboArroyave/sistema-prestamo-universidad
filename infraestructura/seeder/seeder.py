@@ -1,29 +1,29 @@
 from datetime import date
 
+# ABSTRACCIONES (PUERTOS)
+from aplicacion.puertos.repositorio_estudiantes import RepositorioEstudiantes
+from aplicacion.puertos.repositorio_dispositivos import RepositorioDispositivos
+from aplicacion.puertos.repositorio_prestamo import RepositorioPrestamo
+from aplicacion.puertos.repositorio_multa import RepositorioMulta
+
+# DOMINIO
 from dominio.camara import Camara
 from dominio.estado_dispositivo import EstadoDispositivo
-from dominio.estado_multa import EstadoMulta
 from dominio.estado_prestamo import EstadoPrestamo
 from dominio.estudiante import Estudiante
 from dominio.kit_robot import KitRobot
 from dominio.multa import Multa
 from dominio.portatil import Portatil
 from dominio.prestamo import Prestamo
-from infraestructura.repositorio_dispositivos_sqlite import (
-    RepositorioDispositivosSQLite,
-)
-from infraestructura.repositorio_estudiantes_sqlite import RepositorioEstudiantesSQLite
-from infraestructura.repositorio_multa_sqlite import RepositorioMultaSQLite
-from infraestructura.repositorio_prestamo_sqlite import RepositorioPrestamoSQLite
 
 
 class Seeder:
     def __init__(
         self,
-        repo_estudiantes: RepositorioEstudiantesSQLite,
-        repo_dispositivos: RepositorioDispositivosSQLite,
-        repo_prestamos: RepositorioPrestamoSQLite,
-        repo_multas: RepositorioMultaSQLite,
+        repo_estudiantes: RepositorioEstudiantes,
+        repo_dispositivos: RepositorioDispositivos,
+        repo_prestamos: RepositorioPrestamo,
+        repo_multas: RepositorioMulta,
     ) -> None:
         self.repo_estudiantes = repo_estudiantes
         self.repo_dispositivos = repo_dispositivos
@@ -31,6 +31,11 @@ class Seeder:
         self.repo_multas = repo_multas
 
     def poblar_datos_iniciales(self) -> None:
+        # Control para no duplicar ni re-ejecutar si ya existen datos cargados
+        if len(self.repo_estudiantes.obtener_estudiantes()) > 0:
+            print("ℹ️ La base de datos ya contiene información. Se omite la ejecución del Seeder.")
+            return
+
         # 1. Crear Estudiantes
         ana = Estudiante(id="1", codigo="1001", nombre="Ana")
         luis = Estudiante(id="2", codigo="1002", nombre="Luis")
@@ -91,3 +96,5 @@ class Seeder:
 
         multa_luis = Multa(id="MULTA-LUIS-1", prestamo=prestamo_luis, valor=16000)
         self.repo_multas.guardar_multa(multa_luis)
+
+        print(" Base de datos poblada con éxito con los datos semilla iniciales.")
