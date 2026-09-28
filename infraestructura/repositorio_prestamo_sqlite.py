@@ -29,6 +29,7 @@ class RepositorioPrestamoSQLite(RepositorioPrestamo):
                 id_estudiante TEXT NOT NULL,
                 id_dispositivo TEXT NOT NULL,
                 fecha_prestamo TEXT NOT NULL,
+                fecha_maxima_devolucion TEXT NOT NULL,
                 fecha_devolucion TEXT,
                 estado TEXT NOT NULL,
                 FOREIGN KEY (id_estudiante) REFERENCES estudiantes(id),
@@ -40,17 +41,19 @@ class RepositorioPrestamoSQLite(RepositorioPrestamo):
     def guardar_prestamo(self, prestamo: Prestamo) -> None:
         cursor = self.conexion.cursor()
         fecha_dev = prestamo.fecha_devolucion.isoformat() if prestamo.fecha_devolucion else None
+        
         cursor.execute(
             """
             INSERT OR REPLACE INTO prestamos 
-            (id, id_estudiante, id_dispositivo, fecha_prestamo, fecha_devolucion, estado)
-            VALUES (?, ?, ?, ?, ?, ?)
+            (id, id_estudiante, id_dispositivo, fecha_prestamo, fecha_maxima_devolucion, fecha_devolucion, estado)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 prestamo.id,
                 prestamo.estudiante.id,
                 prestamo.dispositivo.id,
                 prestamo.fecha_prestamo.isoformat(),
+                prestamo.fecha_maxima_devolucion.isoformat(),  # Se extrae de la propiedad calculada
                 fecha_dev,
                 prestamo.estado.value
             )
@@ -66,15 +69,17 @@ class RepositorioPrestamoSQLite(RepositorioPrestamo):
         )
         self.conexion.commit()
 
-    def obtener_prestamo_por_estudiante_y_dispositivo(self, id_estudiante: str, id_prestamo: str) -> Prestamo | None:
+    def obtener_prestamo_por_estudiante_y_dispositivo(
+        self, id_estudiante: str, id_dispositivo: str
+    ) -> Prestamo | None:
         cursor = self.conexion.cursor()
         cursor.execute(
             """
-            SELECT id, id_estudiante, id_dispositivo, fecha_prestamo, fecha_devolucion, estado 
+            SELECT id, id_estudiante, id_dispositivo, fecha_prestamo, fecha_maxima_devolucion, fecha_devolucion, estado 
             FROM prestamos 
             WHERE id_estudiante = ? AND id_dispositivo = ? AND estado = 'Activo'
             """,
-            (id_estudiante, id_prestamo)
+            (id_estudiante, id_dispositivo)  # Cambiado id_prestamo por id_dispositivo
         )
         fila = cursor.fetchone()
         if not fila:

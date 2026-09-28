@@ -21,7 +21,7 @@ from infraestructura.repositorio_dispositivos_simulado import (
     RepositorioDispositivosSimulado,
 )
 from infraestructura.repositorio_estudiantes_simulado import RepositorioEstudiantesSimulado
-from infraestructura.repositorio_multa_memoria import RepositorioMultaSimulado
+from infraestructura.repositorio_multa_memoria import RepositorioMultaMemoria
 from infraestructura.repositorio_prestamo_memoria import RepositorioPrestamoMemoria
 
 # SEEDER 
@@ -93,4 +93,4 @@ except ValueError as e:
     print(f"❌ Error insospechado: {e}")
 
 
-repo_prestamos.obtener_todos() # por ahora no hay nada.
+# repo_prestamos.obtener_todos() # por ahora no hay nada.
