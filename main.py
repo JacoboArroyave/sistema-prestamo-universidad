@@ -3,17 +3,18 @@ import sqlite3
 from aplicacion.casos_uso.registrarDevolucion import RegistrarDevolucion
 from aplicacion.casos_uso.registrarPrestamo import RegistrarPrestamo
 
-# CONCRETOS INFRAESTRUCTURA SQL
+# AUX
 from infraestructura.notificador_simulado import NotificadorSimulado
 from infraestructura.proveedor_fecha_fija import ProveedorFechaFija
 from infraestructura.proveedor_id_uuid import ProveedorIdUUID
+
+# CONCRETOS INFRAESTRUCTURA SQL
 from infraestructura.repositorio_dispositivos_sqlite import (
     RepositorioDispositivosSQLite,
 )
 from infraestructura.repositorio_estudiantes_sqlite import RepositorioEstudiantesSQLite
 from infraestructura.repositorio_multa_sqlite import RepositorioMultaSQLite
 from infraestructura.repositorio_prestamo_sqlite import RepositorioPrestamoSQLite
-
 
 # CONCRETOS INFRAESTRUCTURA LISTAS
 from infraestructura.repositorio_dispositivos_simulado import (
@@ -22,7 +23,6 @@ from infraestructura.repositorio_dispositivos_simulado import (
 from infraestructura.repositorio_estudiantes_simulado import RepositorioEstudiantesSimulado
 from infraestructura.repositorio_multa_memoria import RepositorioMultaSimulado
 from infraestructura.repositorio_prestamo_memoria import RepositorioPrestamoMemoria
-
 
 # SEEDER 
 from infraestructura.seeder.seeder import Seeder
