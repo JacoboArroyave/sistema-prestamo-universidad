@@ -59,6 +59,9 @@ class Seeder:
         self.repo_dispositivos.guardar_dispositivo(portatil1)
         self.repo_dispositivos.guardar_dispositivo(portatil2)
         self.repo_dispositivos.guardar_dispositivo(portatil3)
+        self.repo_dispositivos.guardar_dispositivo(camara1)
+        self.repo_dispositivos.guardar_dispositivo(camara2)
+        self.repo_dispositivos.guardar_dispositivo(kit1)
 
         
         # 3. Crear Préstamos Activos para Ana (R1: Máximo 2 activos)
