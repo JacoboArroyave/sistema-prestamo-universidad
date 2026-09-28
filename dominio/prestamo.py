@@ -1,10 +1,9 @@
 from datetime import date
 
-from dispositivo import Dispositivo
-from estudiante import Estudiante
-
+from dominio.dispositivo import Dispositivo
 from dominio.estado_dispositivo import EstadoDispositivo
 from dominio.estado_prestamo import EstadoPrestamo
+from dominio.estudiante import Estudiante
 
 
 class Prestamo:

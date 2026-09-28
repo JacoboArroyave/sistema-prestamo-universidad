@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from estado_dispositivo import EstadoDispositivo
+from dominio.estado_dispositivo import EstadoDispositivo
 
 
 class Dispositivo(ABC):
@@ -19,7 +19,6 @@ class Dispositivo(ABC):
     @abstractmethod
     def maximo_dias(self)->int:
         pass
-    @abstractmethod
     def calcular_multa(self, dias_retraso)->int :
         return dias_retraso * self.tarifa_diaria
 
