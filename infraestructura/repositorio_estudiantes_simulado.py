@@ -9,6 +9,8 @@ class RepositorioEstudiantesSimulado(RepositorioEstudiantes):
         self.estudiantes:list[Estudiante] = []
     @override
     def obtener_estudiantes(self)->list[Estudiante]:
+        # # for estudiante in self.estudiantes: 
+        # #     print(estudiante.__str__())
         return self.estudiantes
     @override
     def agregar_estudiante(self, estudiante):
