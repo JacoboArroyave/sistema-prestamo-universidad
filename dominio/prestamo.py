@@ -1,3 +1,5 @@
+from datetime import date
+
 from dispositivo import Dispositivo
 from estudiante import Estudiante
 
@@ -12,8 +14,8 @@ class Prestamo:
         id,
         estudiante: Estudiante,
         dispositivo: Dispositivo,
-        fecha_prestamo,
-        fecha_devolucion,
+        fecha_prestamo:date,
+        fecha_devolucion:date|None=None,
     ):
         self.id = id
         self.estudiante = estudiante
@@ -25,10 +27,10 @@ class Prestamo:
     def cambiar_estado(self, nuevo_estado:EstadoPrestamo):
         self.estado = nuevo_estado
 
-    def procesar_devolucion(self, fecha_devolucion,estado_dispositivo:EstadoDispositivo):
+    def procesar_devolucion(self, fecha_devolucion,estado_dispositivo:EstadoDispositivo | None):
         self.fecha_devolucion = fecha_devolucion
         dias_retraso = self.calcular_fecha_retraso()
-        self.dispositivo.cambiar_estado(estado_dispositivo)
+        self.dispositivo.actualizar_estado_por_devolucion(estado_dispositivo)
         costo_multa:int = 0
         if dias_retraso > 0:
             costo_multa= self.dispositivo.calcular_multa(dias_retraso)
@@ -37,5 +39,7 @@ class Prestamo:
 
 
     def calcular_fecha_retraso(self):
+        if self.fecha_devolucion is None:
+            raise ValueError("La fecha de devolución no puede ser None al calcular el retraso.")
         dias_retraso = (self.fecha_devolucion - self.fecha_prestamo).days - self.dispositivo.maximo_dias
         return max(0,dias_retraso)
