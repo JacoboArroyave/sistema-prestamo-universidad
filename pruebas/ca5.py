@@ -71,7 +71,7 @@ def ejecutar():
     )
     repo_prestamos.guardar_prestamo(prestamo_1)
 
-    print("--- CA3: devolución tardía de CAMARA-02 ---")
+    print("--- CA5 -----")
     try:
         caso_devolucion.registrar_devolucion(id_estudiante="1", id_dispositivo="C2",estado_dispositivo=EstadoDispositivo.EN_MANTENIMIENTO)
         caso_prestamo.registrar_prestamo(id_estudiante="1", id_dispositivo="C2")
