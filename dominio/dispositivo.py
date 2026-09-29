@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 from dominio.estado_dispositivo import EstadoDispositivo
+from dominio.excepciones.dispositivo_no_disponible import DispositivoNoDisponible
 
 
 class Dispositivo(ABC):
@@ -24,6 +25,8 @@ class Dispositivo(ABC):
         return dias_retraso * self.tarifa_diaria
 
     def cambiar_estado_en_uso(self):
+        if not self.es_disponible(): 
+            raise DispositivoNoDisponible("El dispositivo no está disponible para préstamo")
         self.estado = EstadoDispositivo.EN_USO
 
     def es_disponible(self):
