@@ -96,4 +96,4 @@ except LimiteDePrestamosExcedido as e:
     print(f"❌ Error insospechado: {e}")
 
 
-# repo_prestamos.obtener_todos() # por ahora no hay nada.
+repo_prestamos.obtener_todos() # por ahora no hay nada.

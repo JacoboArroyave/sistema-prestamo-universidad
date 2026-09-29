@@ -48,3 +48,6 @@ class Prestamo:
 
         dias_retraso = (self.fecha_devolucion - self.fecha_maxima_devolucion).days
         return max(0, dias_retraso)
+    @property
+    def validar_prestamo_activo(self)->bool:
+        return self.estado == EstadoPrestamo.ACTIVO
