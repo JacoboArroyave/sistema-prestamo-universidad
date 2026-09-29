@@ -34,7 +34,7 @@ class Prestamo:
         self.fecha_devolucion = fecha_devolucion
         dias_retraso = self.calcular_fecha_retraso()
         self.dispositivo.actualizar_estado_por_devolucion(estado_dispositivo)
-        
+        self.cambiar_estado(EstadoPrestamo.FINALIZADO)
         costo_multa: int = 0
         if dias_retraso > 0:
             costo_multa = self.dispositivo.calcular_multa(dias_retraso)
