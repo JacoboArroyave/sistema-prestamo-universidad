@@ -3,6 +3,9 @@ import sqlite3
 from aplicacion.casos_uso.registrarDevolucion import RegistrarDevolucion
 from aplicacion.casos_uso.registrarPrestamo import RegistrarPrestamo
 
+# Concretos de dominio
+from dominio.excepciones import LimiteDePrestamosExcedido, MultaPendiente
+
 # AUX
 from infraestructura.notificador_simulado import NotificadorSimulado
 from infraestructura.proveedor_fecha_fija import ProveedorFechaFija
@@ -77,7 +80,7 @@ try:
         id_dispositivo="P1"    # PORTATIL-01
     )
     print("❌ ERROR: El préstamo se registró pero debió ser rechazado por multa.")
-except ValueError as e:
+except MultaPendiente as e:
     print(f" CA4 Exitoso (Rechazado correctamente): {e}")
 
 # --- Prueba de Caso de Aceptación (CA1): Préstamo Exitoso para Carlos ---
@@ -89,7 +92,7 @@ try:
         id_dispositivo="P1"    # PORTATIL-01 (DISPONIBLE)
     )
     print(" CA1 Exitoso: El préstamo se registró correctamente y se notificó la fecha límite.")
-except ValueError as e:
+except LimiteDePrestamosExcedido as e:
     print(f"❌ Error insospechado: {e}")
 
 
