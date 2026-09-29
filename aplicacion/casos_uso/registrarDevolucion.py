@@ -25,6 +25,8 @@ class RegistrarDevolucion:
         prestamo:Prestamo= self.repositorio_prestamos.obtener_prestamo_por_estudiante_y_dispositivo(id_estudiante, id_dispositivo)
         if prestamo is None:
             raise ValueError("No se encontró un préstamo activo para este estudiante y dispositivo")
+        if not prestamo.validar_prestamo_activo:
+            raise ValueError("El préstamo ya ha sido devuelto o no está activo")
         valor_multa = prestamo.procesar_devolucion(self.proveedor_fecha.obtener_fecha_actual(),estado_dispositivo)
         if valor_multa > 0 :
             multa: Multa = Multa(id=self.proveedor_id.generar_id(), prestamo=prestamo, valor=valor_multa)
