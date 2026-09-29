@@ -1,0 +1,2 @@
+class EstudianteNoEncontrado(Exception):
+    pass

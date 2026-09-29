@@ -1,0 +1,2 @@
+class PrestamoNoEncontrado(Exception):
+    pass

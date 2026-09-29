@@ -1,0 +1,2 @@
+class LimiteDePrestamosExcedido(Exception):
+         pass

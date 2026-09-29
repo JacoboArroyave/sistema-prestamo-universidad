@@ -1,0 +1,2 @@
+class DispositivoNoEncontrado(Exception):
+    pass

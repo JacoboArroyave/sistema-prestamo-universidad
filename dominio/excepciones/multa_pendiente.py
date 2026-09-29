@@ -1,0 +1,2 @@
+class MultaPendiente(Exception):
+        pass

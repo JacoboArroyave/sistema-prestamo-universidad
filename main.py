@@ -94,6 +94,3 @@ try:
     print(" CA1 Exitoso: El préstamo se registró correctamente y se notificó la fecha límite.")
 except LimiteDePrestamosExcedido as e:
     print(f"❌ Error insospechado: {e}")
-
-
-repo_prestamos.obtener_todos() # por ahora no hay nada.

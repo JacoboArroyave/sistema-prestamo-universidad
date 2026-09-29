@@ -9,7 +9,7 @@ from aplicacion.puertos.repositorio_prestamo import RepositorioPrestamo
 from dominio.dispositivo import Dispositivo
 from dominio.estudiante import Estudiante
 from dominio.prestamo import Prestamo
-from dominio.excepciones import LimiteDePrestamosExcedido, MultaPendiente
+from dominio.excepciones import LimiteDePrestamosExcedido, MultaPendiente, EstudianteNoEncontrado, DispositivoNoEncontrado, DispositivoNoDisponible
 
 
 class RegistrarPrestamo:
@@ -25,11 +25,13 @@ class RegistrarPrestamo:
     def registrar_prestamo(self,id_estudiante,id_dispositivo):
         estudiante:Estudiante = self.repositoorio_estudiante.obtener_estudiante_por_id(id_estudiante)
         dispositivo:Dispositivo = self.reprositorio_dispositivo.obtener_dispositivo_por_id(id_dispositivo)
-        if estudiante is None or dispositivo is None:
-            raise ValueError("No se encontró el estudiante o el dispositivo")
-        
+        if estudiante is None:
+            raise EstudianteNoEncontrado("No se encontró el estudiante")
+        if dispositivo is None:
+            raise DispositivoNoEncontrado("No se encontró el dispositivo")
+
         if not dispositivo.es_disponible(): 
-            raise ValueError("El dispositivo no está disponible para préstamo")
+            raise DispositivoNoDisponible("El dispositivo no está disponible para préstamo")
         
         cantidad_prestamos_activos = self.repositorio_prestamo.obtener_cantidad_prestamos_activos_por_estudiante(id_estudiante)  
         cantidad_deudas = self.reprositorio_multa.obtener_cantidad_multas_por_estudiante(id_estudiante)
