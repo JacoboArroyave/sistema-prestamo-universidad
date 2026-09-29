@@ -3,6 +3,7 @@ from dominio.dispositivo import Dispositivo
 from dominio.estado_dispositivo import EstadoDispositivo
 from dominio.estado_prestamo import EstadoPrestamo
 from dominio.estudiante import Estudiante
+from dominio.excepciones.prestamo_inactivo import PrestamoInactivo
 
 class Prestamo:
 
@@ -31,6 +32,8 @@ class Prestamo:
     def procesar_devolucion(
         self, fecha_devolucion: date, estado_dispositivo: EstadoDispositivo | None
     ) -> int:
+        if not self.validar_prestamo_activo:
+            raise PrestamoInactivo("El préstamo ya ha sido finalizado y no se puede procesar la devolución.")
         self.fecha_devolucion = fecha_devolucion
         dias_retraso = self.calcular_fecha_retraso()
         self.dispositivo.actualizar_estado_por_devolucion(estado_dispositivo)
