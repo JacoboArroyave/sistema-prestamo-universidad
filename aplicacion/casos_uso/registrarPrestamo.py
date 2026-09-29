@@ -9,6 +9,7 @@ from aplicacion.puertos.repositorio_prestamo import RepositorioPrestamo
 from dominio.dispositivo import Dispositivo
 from dominio.estudiante import Estudiante
 from dominio.prestamo import Prestamo
+from dominio.excepciones import LimiteDePrestamosExcedido, MultaPendiente
 
 
 class RegistrarPrestamo:
@@ -33,8 +34,10 @@ class RegistrarPrestamo:
         cantidad_prestamos_activos = self.repositorio_prestamo.obtener_cantidad_prestamos_activos_por_estudiante(id_estudiante)  
         cantidad_deudas = self.reprositorio_multa.obtener_cantidad_multas_por_estudiante(id_estudiante)
 
-        if cantidad_prestamos_activos >= 2 or cantidad_deudas > 0:
-            raise ValueError("El estudiante no puede realizar más préstamos debido a restricciones")
+        if cantidad_prestamos_activos >= 2:
+            raise LimiteDePrestamosExcedido("El estudiante ha excedido el límite de préstamos permitidos")
+        if cantidad_deudas > 0:
+            raise MultaPendiente("El estudiante tiene una multa pendiente y no puede realizar un nuevo préstamo")
         
         prestamo = Prestamo(self.proveedor_id.generar_id(), estudiante, dispositivo, self.proveedor_fecha.obtener_fecha_actual())
         dispositivo.cambiar_estado_en_uso()
