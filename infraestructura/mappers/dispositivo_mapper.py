@@ -16,7 +16,7 @@ class DispositivoMapper:
             return Portatil(id=fila["id"], codigo=fila["codigo"], estado=estado)
         elif tipo == "CAMARA":
             return Camara(id=fila["id"], codigo=fila["codigo"], estado=estado)
-        elif tipo == "KIT_ROBOTICA":
+        elif tipo == "KITROBOT":
             return KitRobot(id=fila["id"], codigo=fila["codigo"], estado=estado)
         else:
             raise ValueError(f"Tipo de dispositivo no soportado: {tipo}")

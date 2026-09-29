@@ -48,8 +48,8 @@ class Seeder:
 
         # 2. Crear Dispositivos
         portatil1 = Portatil(id="P1", codigo="PORTATIL-01", estado=EstadoDispositivo.DISPONIBLE)
-        portatil2 = Portatil(id="P2", codigo="PORTATIL-02", estado=EstadoDispositivo.EN_USO)
-        portatil3 = Portatil(id="P3", codigo="PORTATIL-03", estado=EstadoDispositivo.EN_USO)
+        portatil2 = Portatil(id="P2", codigo="PORTATIL-02", estado=EstadoDispositivo.DISPONIBLE)
+        portatil3 = Portatil(id="P3", codigo="PORTATIL-03", estado=EstadoDispositivo.DISPONIBLE)
         
         camara1 = Camara(id="C1", codigo="CAMARA-01", estado=EstadoDispositivo.DISPONIBLE)
         camara2 = Camara(id="C2", codigo="CAMARA-02", estado=EstadoDispositivo.EN_USO)
@@ -65,18 +65,7 @@ class Seeder:
 
         
         # 3. Crear Préstamos Activos para Ana (R1: Máximo 2 activos)
-        prestamo_ana_1 = Prestamo(
-            id="PRES-ANA-1",
-            estudiante=ana,
-            dispositivo=portatil2,
-            fecha_prestamo=date(2026, 10, 2)
-        )
-        prestamo_ana_2 = Prestamo(
-            id="PRES-ANA-2",
-            estudiante=ana,
-            dispositivo=portatil3,
-            fecha_prestamo=date(2026, 10, 3)
-        )
+        
 
         # 4. Crear Préstamo vencido para Devolución (CA3: prestada el 2026-10-01)
         prestamo_camara = Prestamo(
@@ -86,8 +75,6 @@ class Seeder:
             fecha_prestamo=date(2026, 10, 1)
         )
 
-        self.repo_prestamos.guardar_prestamo(prestamo_ana_1)
-        self.repo_prestamos.guardar_prestamo(prestamo_ana_2)
         self.repo_prestamos.guardar_prestamo(prestamo_camara)
 
         # 5. Crear Préstamo histórico y Multa pendiente para Luis (CA4)

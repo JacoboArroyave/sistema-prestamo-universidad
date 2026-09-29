@@ -34,3 +34,6 @@ class Dispositivo(ABC):
             self.estado = EstadoDispositivo.DISPONIBLE
         else:
             self.estado =EstadoDispositivo.EN_MANTENIMIENTO
+
+
+    
