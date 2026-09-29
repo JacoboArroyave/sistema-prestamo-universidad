@@ -1,0 +1,2 @@
+class PrestamoInactivo(Exception):
+    pass
